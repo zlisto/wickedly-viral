@@ -38,7 +38,7 @@ If you want to get started quickly with all the code already in place:
 2. Navigate to the directory where you want to store the project
 3. Run the following command to clone the repository:
    ```bash
-   git clone https://github.com/your-username/wickedly-viral.git
+   git clone https://github.com/zlisto/wickedly-viral.git
    ```
    (Replace "your-username" with the actual repository username)
 4. Navigate into the project folder:
