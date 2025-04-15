@@ -4,11 +4,12 @@ A React application with a "Wicked" theme for analyzing viral tweets, complete w
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  - [Option 1: Cloning the Repository](#option-1-cloning-the-repository)
+  - [Option 2: Building Manually](#option-2-building-manually)
 - [Installing Node.js](#installing-nodejs)
 - [Stripe Account Setup](#stripe-account-setup)
-- [Creating Project Structure](#creating-project-structure)
-- [Frontend Setup](#frontend-setup)
-- [Backend Setup](#backend-setup)
+- [Setting Up the Application](#setting-up-the-application)
 - [Running the Application](#running-the-application)
 - [Troubleshooting](#troubleshooting)
 
@@ -19,11 +20,64 @@ Before you begin, make sure you have the following:
 - A computer with internet access
 - VS Code installed
 - Basic understanding of web development concepts
-- The code for the Wickedly Viral app (provided in this repository)
+- Git installed (for cloning option)
 
 This tutorial assumes you have VS Code already installed. If not, please download and install it from [https://code.visualstudio.com/](https://code.visualstudio.com/).
 
 > **Note:** For the Stripe integration, you'll need to create a free Stripe account.
+
+## Getting Started
+
+You have two options for setting up the Wickedly Viral app:
+
+### Option 1: Cloning the Repository
+
+If you want to get started quickly with all the code already in place:
+
+1. Open your terminal or command prompt
+2. Navigate to the directory where you want to store the project
+3. Run the following command to clone the repository:
+   ```bash
+   git clone https://github.com/your-username/wickedly-viral.git
+   ```
+   (Replace "your-username" with the actual repository username)
+4. Navigate into the project folder:
+   ```bash
+   cd wickedly-viral
+   ```
+
+After cloning, you'll need to install the dependencies:
+
+1. For the client (React frontend):
+   ```bash
+   cd client
+   npm install
+   ```
+
+2. For the server (Node.js backend):
+   ```bash
+   cd ../server
+   npm install
+   ```
+
+### Option 2: Building Manually
+
+If you prefer to build the application step by step:
+
+1. Create a new folder for your project:
+   ```bash
+   mkdir wickedly-viral
+   cd wickedly-viral
+   ```
+
+2. Create the client and server directories:
+   ```bash
+   mkdir client server
+   ```
+
+3. In the client directory, you'll create a React app and add the necessary files (described in the [Frontend Setup](#frontend-setup) section)
+
+4. In the server directory, you'll set up the Node.js backend (described in the [Backend Setup](#backend-setup) section)
 
 ## Installing Node.js
 
@@ -83,157 +137,134 @@ Stripe is used for handling payments in the Wickedly Viral app. Follow these ste
 
 > **Note:** Keep your API keys and Price IDs safe. You'll need to add them to the application's environment files in the later steps.
 
-## Creating Project Structure
+## Setting Up the Application
 
-Now we'll set up the basic folder structure for the Wickedly Viral application. The project will have a client folder for the frontend and a server folder for the backend.
+### Frontend Setup
 
-### Create the Project Folders:
-1. Open VS Code
-2. Go to File > Open Folder
-3. Create a new folder named "wickedly-viral" and open it
-4. Inside VS Code, create two new folders:
-   - client (for the React frontend)
-   - server (for the Node.js backend)
-
-Your project structure should look like this:
-```
-wickedly-viral/
-├── client/
-└── server/
-```
-
-### Terminal in VS Code:
-You'll be using the terminal in VS Code for many of the upcoming steps. To open the terminal:
-1. Go to Terminal > New Terminal in the VS Code menu
-2. A terminal panel will open at the bottom of the VS Code window
-3. Make sure the terminal is opened in your "wickedly-viral" folder
-
-## Frontend Setup
-
-Now we'll set up the React frontend application. Follow these steps carefully:
-
-### Initialize React App:
-1. In VS Code terminal, navigate to the client folder:
+#### If you cloned the repository:
+1. Navigate to the client directory:
    ```bash
    cd client
    ```
-2. Create a new React application:
+2. Create a file named `.env` in the client directory with your Stripe publishable key:
+   ```
+   REACT_APP_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+   ```
+
+#### If you're building manually:
+
+1. Navigate to the client directory:
+   ```bash
+   cd client
+   ```
+2. Initialize a new React application:
    ```bash
    npx create-react-app .
    ```
-   This might take a few minutes to complete.
-3. After it's created, install the additional dependencies:
-   ```bash
-   npm install @stripe/react-stripe-js @stripe/stripe-js axios papaparse react-dropzone react-router-dom tailwindcss autoprefixer postcss
+3. Create a `package.json` file with the required dependencies:
+   ```json
+   {
+     "name": "wickedly-viral-client",
+     "version": "0.1.0",
+     "private": true,
+     "dependencies": {
+       "@stripe/react-stripe-js": "^1.16.5",
+       "@stripe/stripe-js": "^1.54.1",
+       "axios": "^1.4.0",
+       "papaparse": "^5.4.1",
+       "react": "^18.2.0",
+       "react-dom": "^18.2.0",
+       "react-dropzone": "^14.2.3",
+       "react-router-dom": "^6.14.1",
+       "react-scripts": "5.0.1",
+       "tailwindcss": "^3.3.2",
+       "autoprefixer": "^10.4.14",
+       "postcss": "^8.4.24"
+     },
+     "scripts": {
+       "start": "react-scripts start",
+       "build": "react-scripts build",
+       "test": "react-scripts test",
+       "eject": "react-scripts eject"
+     },
+     "eslintConfig": {
+       "extends": [
+         "react-app",
+         "react-app/jest"
+       ]
+     },
+     "browserslist": {
+       "production": [
+         ">0.2%",
+         "not dead",
+         "not op_mini all"
+       ],
+       "development": [
+         "last 1 chrome version",
+         "last 1 firefox version",
+         "last 1 safari version"
+       ]
+     },
+     "proxy": "http://localhost:5000"
+   }
    ```
-
-### Create Frontend Files:
-Now that we have initialized our React app, we need to create or modify several files. The code for these files is provided in this repository. You will need to create these files in the correct locations.
-
-1. Create the following configuration files in the client directory:
-   - **tailwind.config.js** - Tailwind CSS configuration
-   - **postcss.config.js** - PostCSS configuration
-   - **.env** - Environment variables for frontend
-
-2. Replace or modify the following files in the src directory:
-   - **src/App.js** - Main application component
-   - **src/index.js** - Entry point
-   - **src/index.css** - Global styles with Tailwind directives
-
-3. Create a components folder inside the src directory:
+4. Install the dependencies:
    ```bash
-   mkdir src/components
+   npm install
    ```
+5. Create the necessary configuration files and component files as mentioned in the original README
+6. Create a `.env` file with your Stripe publishable key
 
-4. Create the following component files inside the src/components folder:
-   - **HomePage.js** - Login page component
-   - **CreateAccount.js** - Account creation component
-   - **MembershipPage.js** - Subscription selection component
-   - **PaymentPage.js** - Stripe payment component
-   - **TweetAnalysis.js** - Main app functionality
+### Backend Setup
 
-### Frontend .env File:
-Create a file named `.env` in the client directory with the following content:
-```
-REACT_APP_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
-```
-Replace `your_stripe_publishable_key` with your actual Stripe publishable key from the Stripe dashboard.
-
-> **Tip:** Make sure all the files are in their correct locations. The directory structure should look like this:
-
-```
-wickedly-viral/
-├── client/
-│   ├── public/
-│   │   └── index.html
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── HomePage.js
-│   │   │   ├── CreateAccount.js
-│   │   │   ├── MembershipPage.js
-│   │   │   ├── PaymentPage.js
-│   │   │   └── TweetAnalysis.js
-│   │   ├── App.js
-│   │   ├── index.js
-│   │   └── index.css
-│   ├── .env
-│   ├── package.json
-│   ├── tailwind.config.js
-│   └── postcss.config.js
-└── server/
-```
-
-After copying all the files, your frontend setup is complete!
-
-## Backend Setup
-
-Now let's set up the Node.js backend server for handling Stripe payments. Follow these steps:
-
-### Initialize Node.js Project:
-1. In VS Code terminal, navigate to the server folder:
+#### If you cloned the repository:
+1. Navigate to the server directory:
    ```bash
    cd ../server
    ```
-2. Initialize a new Node.js project:
-   ```bash
-   npm init -y
+2. Create a file named `.env` in the server directory with your Stripe keys:
    ```
-   This creates a basic package.json file.
-3. Install the required dependencies:
-   ```bash
-   npm install express cors dotenv stripe body-parser
-   npm install nodemon --save-dev
+   PORT=5000
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   STRIPE_PRICE_ID_MONTHLY=your_stripe_price_id_for_monthly_subscription
+   STRIPE_PRICE_ID_ONETIME=your_stripe_price_id_for_onetime_payment
    ```
 
-### Create Backend Files:
-1. Create a file named **server.js** in the server directory
-2. Copy the server.js code provided in this repository into this file
-3. Create a file named **.env** in the server directory
+#### If you're building manually:
 
-### Backend .env File:
-Add the following content to your server/.env file:
-```
-PORT=5000
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_PRICE_ID_MONTHLY=your_stripe_price_id_for_monthly_subscription
-STRIPE_PRICE_ID_ONETIME=your_stripe_price_id_for_onetime_payment
-```
-
-Replace the placeholders with your actual Stripe keys and price IDs:
-- `your_stripe_secret_key`: Your Stripe secret key
-- `your_stripe_price_id_for_monthly_subscription`: The price ID for the $20/month subscription
-- `your_stripe_price_id_for_onetime_payment`: The price ID for the $25 one-time payment
-
-Your backend directory should now look like this:
-```
-wickedly-viral/
-└── server/
-    ├── .env
-    ├── package.json
-    └── server.js
-```
-
-> **Important:** Never share your Stripe secret key with anyone or commit it to a public repository. The .env files should always be excluded from version control.
+1. Navigate to the server directory:
+   ```bash
+   cd ../server
+   ```
+2. Create a `package.json` file with the required dependencies:
+   ```json
+   {
+     "name": "wickedly-viral-server",
+     "version": "1.0.0",
+     "description": "Backend for Wickedly Viral app",
+     "main": "server.js",
+     "scripts": {
+       "start": "node server.js",
+       "dev": "nodemon server.js"
+     },
+     "dependencies": {
+       "body-parser": "^1.20.2",
+       "cors": "^2.8.5",
+       "dotenv": "^16.3.1",
+       "express": "^4.18.2",
+       "stripe": "^12.11.0"
+     },
+     "devDependencies": {
+       "nodemon": "^2.0.22"
+     }
+   }
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+4. Create the server.js file with the backend code
+5. Create a `.env` file with your Stripe keys
 
 ## Running the Application
 
@@ -244,7 +275,6 @@ Now that you've set up both the frontend and backend, it's time to run the appli
    ```bash
    cd server
    ```
-   If you're already in the wickedly-viral root folder, use `cd server`
 2. Start the server:
    ```bash
    node server.js
@@ -257,7 +287,6 @@ Now that you've set up both the frontend and backend, it's time to run the appli
    ```bash
    cd client
    ```
-   If you're already in the wickedly-viral root folder, use `cd client`
 3. Start the React development server:
    ```bash
    npm start
@@ -302,19 +331,12 @@ If you encounter any issues while setting up or running the application, check t
 ### Missing Dependencies:
 **Problem:** Errors about missing modules or packages.
 
-**Solution:** Run npm install in both the client and server directories to ensure all dependencies are installed.
+**Solution:** Make sure you've run `npm install` in both the client and server directories. Check that your package.json files contain all the necessary dependencies.
 
 ### File Upload Issues:
 **Problem:** CSV file not being parsed correctly or showing errors.
 
 **Solution:** Ensure your CSV file has the correct column names: "text" and "favorite_count". Check for any formatting issues in the CSV file.
-
-### Floating Bats Not Visible:
-**Problem:** The floating bats in the Tweet Analysis page are not visible or look incorrect.
-
-**Solution:** Check the FloatingBat component in TweetAnalysis.js and ensure the SVG code is correct. Also check that the .floating-bat CSS class is properly defined in index.css.
-
-> **Pro Tip:** Use the browser's developer console (F12 or right-click and select "Inspect") to see any JavaScript errors that might be occurring.
 
 ## Sample CSV Format
 
