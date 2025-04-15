@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-wicked-light;
+}
+
+/* Custom Button Style */
+.wicked-button {
+  @apply bg-wicked-green text-white font-bold py-2 px-6 rounded-md hover:bg-wicked-dark transition-all duration-300 shadow-md;
+}
+
+.wicked-button-pink {
+  @apply bg-wicked-pink text-white font-bold py-2 px-6 rounded-md hover:opacity-90 transition-all duration-300 shadow-md;
+}
+
+/* Floating bat animation */
+.floating-bat {
+  @apply fixed opacity-60 z-0;
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-15px) rotate(5deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(15px) rotate(-5deg); }
+}
+
+/* Table styles */
+.wicked-table {
+  @apply w-full rounded-lg overflow-hidden shadow-lg;
+}
+
+.wicked-table thead {
+  @apply bg-wicked-green text-white;
+}
+
+.wicked-table th {
+  @apply py-3 px-4 text-left;
+}
+
+.wicked-table tbody tr {
+  @apply bg-white border-b border-gray-200;
+}
+
+.wicked-table tbody tr:hover {
+  @apply bg-wicked-light;
+}
+
+.wicked-table td {
+  @apply py-3 px-4;
+}
+
+/* Form input styles */
+.wicked-input {
+  @apply border border-gray-300 rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-wicked-green;
+}
+
+/* Drop zone styles */
+.drop-zone {
+  @apply border-2 border-dashed border-wicked-green rounded-lg p-10 text-center cursor-pointer bg-white transition-all;
+}
+
+.drop-zone-active {
+  @apply border-wicked-pink bg-wicked-light;
+}
